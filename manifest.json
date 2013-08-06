@@ -1,13 +1,15 @@
 {
     "name": "Polyvore Saver",
-    "version": "1.0",
+    "description": "Allow to save sets from Polyvore on profile and detail set pages",
+    "version": "0.2",
     "icons": {
         "16": "img/icon16.png",
         "48": "img/icon48.png",
         "128": "img/icon128.png" },
 
     "background" : {
-        "scripts": ["background.js"]
+        "scripts": ["background.js"],
+        "persistent": false
 	},
 
     "page_action": {
@@ -22,18 +24,16 @@
             "matches" : [
                 "http://*.polyvore.com/*/set*"
             ],
-            "js" : ["jquery-2.0.0.min.js", "set-script.js"],
-            "run_at" : "document_end"
+            "js" : ["jquery-2.0.0.min.js", "set-script.js"]
         },
         {
             "matches" : [
-                "http://*.polyvore.com/"
+                "http://*.polyvore.com/*"
             ],
             "exclude_matches" : [
                 "http://www.polyvore.com/"
             ],
-            "js" : ["jquery-2.0.0.min.js", "profile-script.js"],
-            "run_at" : "document_end"
+            "js" : ["jquery-2.0.0.min.js", "profile-script.js"]
         }
     ],
     "permissions": [
