@@ -8,28 +8,47 @@ var today = new Date(),
 
 function appendSaveButtons() {
     $('div.grid_item').not('.with-save').each(function (){
-        var image = $(this).find('img').attr('src'),
-            title = $(this).find('li.title > a').text().replace(/\W/, '');
+        var imageEl = $(this).find('img'),
+            title = $(this).find('li.title > a').text(),
+            image = '',
+            wasImg = false;
 
-        if (image.indexOf('img-set') >= 0)
-            image = image.replace(/.\.jpg/, 'y.jpg');
-        else if (image.indexOf('img-thing') >= 0)
-            image = image.replace(/\/size\/./, '/size/l');
-        else
-            return;
+        if (imageEl && title) {
+            title = title.replace(/\W/, '');
+            image = imageEl.attr('xsrc');
 
-        $(this).addClass('with-save');
+            if (!image)
+                image = imageEl.attr('src');
 
-        $(this).find('ul.buttons').prepend(
-            '<li><a href="' + image + '" download="Polyvore - ' + title + ' - ' + date + '" class="comments btn right" title="Save">' +
-                'Save' +
-            '</a></li>');
+            if (image.indexOf('img-set') >= 0) {
+                wasImg = true;
+                image = image.replace(/.\.jpg/, 'y.jpg');
+            }
+            else if (image.indexOf('img-thing') >= 0) {
+                wasImg = true;
+                image = image.replace(/\/size\/./, '/size/l');
+            }
+
+            if (wasImg)
+                $(this).find('ul.buttons').prepend(
+                    '<li><a href="' + image + '" download="Polyvore - ' + title + ' - ' + date + '" class="comments btn right" title="Save">' +
+                        'Save' +
+                    '</a></li>');
+
+            $(this).addClass('with-save');
+        }
     });
 }
 
 appendSaveButtons();
 
 $('#pagination_placeholder').bind('DOMNodeInserted DOMNodeRemoved', function(event) {
+    if (event.type == 'DOMNodeInserted' && event.target.className == 'layout_grid grid_5 mod_inline_save clearfix ') {
+        appendSaveButtons();
+    }
+});
+
+$('#content').bind('DOMNodeInserted DOMNodeRemoved', function(event) {
     if (event.type == 'DOMNodeInserted' && event.target.className == 'layout_grid grid_5 mod_inline_save clearfix ') {
         appendSaveButtons();
     }

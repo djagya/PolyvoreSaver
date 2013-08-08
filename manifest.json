@@ -1,7 +1,7 @@
 {
     "name": "Polyvore Saver",
     "description": "Allow to save sets from Polyvore on profile and detail set pages",
-    "version": "0.2",
+    "version": "0.2.1",
     "icons": {
         "16": "img/icon16.png",
         "48": "img/icon48.png",
@@ -28,10 +28,8 @@
         },
         {
             "matches" : [
-                "http://*.polyvore.com/*"
-            ],
-            "exclude_matches" : [
-                "http://www.polyvore.com/"
+                "http://*.polyvore.com/*",
+                "http://(www.)?polyvore.com/*?"
             ],
             "js" : ["jquery-2.0.0.min.js", "profile-script.js"]
         }
